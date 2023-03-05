@@ -1,7 +1,9 @@
 package csen1002.main.task1;
 
-import java.sql.Array;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Objects;
+import java.util.Stack;
 import java.util.stream.Collectors;
 
 /**
@@ -103,180 +105,180 @@ class ThompsonController {
 				.append(finalNFA.getGoal()).toString();
 	}
 
+	class NFA {
+		private final ArrayList<Integer> states;
+		private final ArrayList<Transition> transitionsList;
+		private Integer start, goal;
+
+		public NFA(ArrayList<Integer> states, ArrayList<Transition> transitionsList, Integer start, Integer goal) {
+			this.states = states;
+			this.transitionsList = transitionsList;
+			this.start = start;
+			this.goal = goal;
+		}
+
+		public NFA(ArrayList<Integer> states, ArrayList<Transition> transitionsList) {
+			this.states = states;
+			this.transitionsList = transitionsList;
+		}
+
+		public NFA union(NFA a) {
+			int lastState = Math.max(this.getLastState(), a.getLastState());
+			int newStart = lastState + 1;
+			int newGoal = lastState + 2;
+
+			Transition newStartToOldStart1 = new Transition(newStart, this.start, 'e');
+			Transition newStartToOldStart2 = new Transition(newStart, a.start, 'e');
+			Transition oldGoalToNewGoal1 = new Transition(this.goal, newGoal, 'e');
+			Transition oldGoalToNewGoal2 = new Transition(a.goal, newGoal, 'e');
+
+			NFA unionNFA = this.clone();
+			unionNFA.getStates().addAll(a.getStates());
+			unionNFA.getStates().add(newStart);
+			unionNFA.getStates().add(newGoal);
+
+			unionNFA.setStart(newStart);
+			unionNFA.setGoal(newGoal);
+
+			for (Transition t : a.getTransitionsList())
+				unionNFA.getTransitionsList().add(t);
+			unionNFA.getTransitionsList().add(newStartToOldStart1);
+			unionNFA.getTransitionsList().add(newStartToOldStart2);
+			unionNFA.getTransitionsList().add(oldGoalToNewGoal1);
+			unionNFA.getTransitionsList().add(oldGoalToNewGoal2);
+
+
+			return unionNFA;
+		}
+
+		public NFA kleeneStar() {
+			int newStart = this.getLastState() + 1;
+			int newGoal = this.getLastState() + 2;
+			Transition oldGoalToOldStart = new Transition(this.goal, this.start, 'e');
+			Transition newStartToOldStart = new Transition(newStart, this.start, 'e');
+			Transition newStartToNewGoal = new Transition(newStart, newGoal, 'e');
+			Transition oldGoalToNewGaol = new Transition(this.goal, newGoal, 'e');
+			NFA nfaClone = this.clone();
+			nfaClone.getStates().add(newStart);
+			nfaClone.getStates().add(newGoal);
+			nfaClone.getTransitionsList().add(oldGoalToOldStart);
+			nfaClone.getTransitionsList().add(newStartToOldStart);
+			nfaClone.getTransitionsList().add(newStartToNewGoal);
+			nfaClone.getTransitionsList().add(oldGoalToNewGaol);
+			nfaClone.setStart(newStart);
+			nfaClone.setGoal(newGoal);
+			Collections.sort(nfaClone.transitionsList);
+			return nfaClone;
+		}
+
+		public NFA concatenate(NFA b) {
+			NFA newNFA = b.clone();
+			newNFA.setStart(b.start);
+			newNFA.setGoal(b.goal);
+
+			// Adding transitions
+			ArrayList<Transition> transitionsFromStartStateB = new ArrayList<>();
+			newNFA.getTransitionsList().forEach(transition -> {
+				if (newNFA.isStartState(transition.from))
+					transitionsFromStartStateB.add(transition);
+			});
+			transitionsFromStartStateB.forEach(transition -> newNFA.getTransitionsList().
+					add(new Transition(this.goal,
+							transition.to,
+							transition.transitionSymbol)));
+			newNFA.getTransitionsList().removeIf(transition -> newNFA.isStartState(transition.from));
+
+			// Removing the start state for NFA b
+			newNFA.getStates().remove(newNFA.start);
+
+			//Removing transition from the old start state
+			newNFA.getTransitionsList().removeIf(obj -> newNFA.isStartState(obj.from));
+			newNFA.getStates().addAll(this.getStates());
+			this.getTransitionsList().forEach(transition -> newNFA.getTransitionsList().add(transition.clone()));
+			newNFA.setStart(this.start);
+			newNFA.setGoal(b.goal);
+			return newNFA;
+		}
+
+		public boolean isStartState(Integer s) {
+			return Objects.equals(s, this.start);
+		}
+
+		public Integer getLastState() {
+			return Collections.max(this.states);
+		}
+
+		public NFA clone() {
+			ArrayList<Transition> newTransitions = new ArrayList<>();
+			for (Transition t : this.transitionsList)
+				newTransitions.add(t.clone());
+			ArrayList<Integer> newStates = new ArrayList<>(this.states);
+
+			return new NFA(newStates, newTransitions);
+		}
+
+		public ArrayList<Integer> getStates() {
+			return states;
+		}
+
+		public ArrayList<Transition> getTransitionsList() {
+			return transitionsList;
+		}
+
+
+		public void setStart(Integer start) {
+			this.start = start;
+		}
+
+		public void setGoal(Integer goal) {
+			this.goal = goal;
+		}
+
+		public Integer getStart() {
+			return start;
+		}
+
+		public Integer getGoal() {
+			return goal;
+		}
+
+		public String statesToString() {
+			Collections.sort(this.getStates());
+			return this.getStates().stream().map(String::valueOf).collect(Collectors.joining(";"));
+		}
+
+		public String transitionsToString() {
+			Collections.sort(this.transitionsList);
+			return this.transitionsList.stream().map(String::valueOf).collect(Collectors.joining(";"));
+		}
+
+	}
+
+	class Transition implements Comparable<Transition> {
+		int from, to;
+		char transitionSymbol;
+
+		public Transition(int from, int to, char transitionSymbol) {
+			this.from = from;
+			this.to = to;
+			this.transitionSymbol = transitionSymbol;
+		}
+
+		@Override
+		public int compareTo(Transition o) {
+			if (from == o.from)
+				return transitionSymbol == o.transitionSymbol ? to - o.to : transitionSymbol - o.transitionSymbol;
+			return from - o.from;
+		}
+
+		public Transition clone() {
+			return new Transition(from, to, transitionSymbol);
+		}
+
+		public String toString() {
+			return from + "," + transitionSymbol + "," + to;
+		}
+
+	}
 }
 
-class NFA {
-	private final ArrayList<Integer> states;
-	private final ArrayList<Transition> transitionsList;
-	private Integer start, goal;
-
-	public NFA(ArrayList<Integer> states, ArrayList<Transition> transitionsList, Integer start, Integer goal) {
-		this.states = states;
-		this.transitionsList = transitionsList;
-		this.start = start;
-		this.goal = goal;
-	}
-
-	public NFA(ArrayList<Integer> states, ArrayList<Transition> transitionsList) {
-		this.states = states;
-		this.transitionsList = transitionsList;
-	}
-
-	public NFA union(NFA a) {
-		int lastState = Math.max(this.getLastState(), a.getLastState());
-		int newStart = lastState + 1;
-		int newGoal = lastState + 2;
-
-		Transition newStartToOldStart1 = new Transition(newStart, this.start, 'e');
-		Transition newStartToOldStart2 = new Transition(newStart, a.start, 'e');
-		Transition oldGoalToNewGoal1 = new Transition(this.goal, newGoal, 'e');
-		Transition oldGoalToNewGoal2 = new Transition(a.goal, newGoal, 'e');
-
-		NFA unionNFA = this.clone();
-		unionNFA.getStates().addAll(a.getStates());
-		unionNFA.getStates().add(newStart);
-		unionNFA.getStates().add(newGoal);
-
-		unionNFA.setStart(newStart);
-		unionNFA.setGoal(newGoal);
-
-		for (Transition t : a.getTransitionsList())
-			unionNFA.getTransitionsList().add(t);
-		unionNFA.getTransitionsList().add(newStartToOldStart1);
-		unionNFA.getTransitionsList().add(newStartToOldStart2);
-		unionNFA.getTransitionsList().add(oldGoalToNewGoal1);
-		unionNFA.getTransitionsList().add(oldGoalToNewGoal2);
-
-
-		return unionNFA;
-	}
-
-	public NFA kleeneStar() {
-		int newStart = this.getLastState() + 1;
-		int newGoal = this.getLastState() + 2;
-		Transition oldGoalToOldStart = new Transition(this.goal, this.start, 'e');
-		Transition newStartToOldStart = new Transition(newStart, this.start, 'e');
-		Transition newStartToNewGoal = new Transition(newStart, newGoal, 'e');
-		Transition oldGoalToNewGaol = new Transition(this.goal, newGoal, 'e');
-		NFA nfaClone = this.clone();
-		nfaClone.getStates().add(newStart);
-		nfaClone.getStates().add(newGoal);
-		nfaClone.getTransitionsList().add(oldGoalToOldStart);
-		nfaClone.getTransitionsList().add(newStartToOldStart);
-		nfaClone.getTransitionsList().add(newStartToNewGoal);
-		nfaClone.getTransitionsList().add(oldGoalToNewGaol);
-		nfaClone.setStart(newStart);
-		nfaClone.setGoal(newGoal);
-		Collections.sort(nfaClone.transitionsList);
-		return nfaClone;
-	}
-
-	public NFA concatenate(NFA b) {
-		NFA newNFA = b.clone();
-		newNFA.setStart(b.start);
-		newNFA.setGoal(b.goal);
-
-		// Adding transitions
-		ArrayList<Transition> transitionsFromStartStateB = new ArrayList<>();
-		newNFA.getTransitionsList().forEach(transition -> {
-			if (newNFA.isStartState(transition.from))
-				transitionsFromStartStateB.add(transition);
-		});
-		transitionsFromStartStateB.forEach(transition -> newNFA.getTransitionsList().
-				add(new Transition(this.goal,
-						transition.to,
-						transition.transitionSymbol)));
-		newNFA.getTransitionsList().removeIf(transition -> newNFA.isStartState(transition.from));
-
-		// Removing the start state for NFA b
-		newNFA.getStates().remove(newNFA.start);
-
-		//Removing transition from the old start state
-		newNFA.getTransitionsList().removeIf(obj -> newNFA.isStartState(obj.from));
-		newNFA.getStates().addAll(this.getStates());
-		this.getTransitionsList().forEach(transition -> newNFA.getTransitionsList().add(transition.clone()));
-		newNFA.setStart(this.start);
-		newNFA.setGoal(b.goal);
-		return newNFA;
-	}
-
-	public boolean isStartState(Integer s) {
-		return Objects.equals(s, this.start);
-	}
-
-	public Integer getLastState() {
-		return Collections.max(this.states);
-	}
-
-	public NFA clone() {
-		ArrayList<Transition> newTransitions = new ArrayList<>();
-		for (Transition t : this.transitionsList)
-			newTransitions.add(t.clone());
-		ArrayList<Integer> newStates = new ArrayList<>(this.states);
-
-		return new NFA(newStates, newTransitions);
-	}
-
-	public ArrayList<Integer> getStates() {
-		return states;
-	}
-
-	public ArrayList<Transition> getTransitionsList() {
-		return transitionsList;
-	}
-
-
-	public void setStart(Integer start) {
-		this.start = start;
-	}
-
-	public void setGoal(Integer goal) {
-		this.goal = goal;
-	}
-
-	public Integer getStart() {
-		return start;
-	}
-
-	public Integer getGoal() {
-		return goal;
-	}
-
-	public String statesToString() {
-		Collections.sort(this.getStates());
-		return this.getStates().stream().map(String::valueOf).collect(Collectors.joining(";"));
-	}
-
-	public String transitionsToString() {
-		Collections.sort(this.transitionsList);
-		return this.transitionsList.stream().map(String::valueOf).collect(Collectors.joining(";"));
-	}
-
-}
-
-class Transition implements Comparable<Transition> {
-	int from, to;
-	char transitionSymbol;
-
-	public Transition(int from, int to, char transitionSymbol) {
-		this.from = from;
-		this.to = to;
-		this.transitionSymbol = transitionSymbol;
-	}
-
-	@Override
-	public int compareTo(Transition o) {
-        if (from == o.from)
-            return transitionSymbol == o.transitionSymbol ? to - o.to : transitionSymbol - o.transitionSymbol;
-        return from - o.from;
-	}
-
-	public Transition clone() {
-		return new Transition(from, to, transitionSymbol);
-	}
-
-	public String toString() {
-		return from + "," + transitionSymbol + "," + to;
-	}
-
-}

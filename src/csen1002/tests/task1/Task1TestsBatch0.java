@@ -1,18 +1,15 @@
-package csen1002.main.task1;
+package csen1002.tests.task1;
 
-import static org.junit.jupiter.api.Assertions.*;
+import csen1002.main.task1.RegExToNfa;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 
 import java.util.concurrent.TimeUnit;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Timeout;
-//import org.junit.jupiter.api.Timeout.ThreadMode;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import csen1002.main.task1.RegExToNfa;
-
-@Timeout(value = 5, unit = TimeUnit.SECONDS)
+@Timeout(value = 5, unit = TimeUnit.SECONDS, threadMode = Timeout.ThreadMode.SEPARATE_THREAD)
 public class Task1TestsBatch0 {
-
 
 	@Test
 	public void testRegEx1() {
