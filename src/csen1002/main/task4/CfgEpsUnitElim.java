@@ -23,12 +23,13 @@ public class CfgEpsUnitElim {
     CFG cfg;
 
     public static void main(String[] args) {
-        String s = "S;A;#a#S/ASA;A/a,e";
-        CfgEpsUnitElim c = new CfgEpsUnitElim(s);
-        c.eliminateEpsilonRules();
-        System.out.println(s);
-        System.out.println(c);
+        String s = "ACACA";
 
+        HashSet<String> newPatterns = new HashSet<>();
+        addAllOccurrences("A",s, 0, "", newPatterns);
+        System.out.println(s);
+        System.out.println(newPatterns.size());
+        System.out.println(newPatterns.stream().collect(Collectors.joining(";")));
     }
 
     public CfgEpsUnitElim(String cfgRepresentation) {
@@ -94,7 +95,7 @@ public class CfgEpsUnitElim {
         }
     }
 
-    private void addAllOccurrences(String rule, String pattern, int idx, String ans, HashSet<String> newPattern) {
+    public static void addAllOccurrences(String rule, String pattern, int idx, String ans, HashSet<String> newPattern) {
         if (idx == pattern.length()) {
             newPattern.add(ans.length() > 0 ? ans : "e");
         } else {
@@ -151,7 +152,8 @@ class CFG {
     }
 
     public String variableRepresentation() {
-        return variables.stream().collect(Collectors.joining(";"));
+        return variables.stream()
+                .collect(Collectors.joining(";"));
     }
 
     public String rulesRepresentation() {
