@@ -12,6 +12,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Timeout(value = 5, unit = TimeUnit.SECONDS, threadMode = ThreadMode.SEPARATE_THREAD)
 public class Task6TestsBatch0 {
 
+	@Test()
+	public void testEdgeCaseFollow() {
+		CfgFirstFollow cfgFirstFollow= new CfgFirstFollow("S;A;B;C#a;b;c#S/SAB,SBC,e;A/aAa,e;B/bB,e;C/cC,e");
+		assertEquals("S/$abc;A/$abc;B/$abc;C/$abc", cfgFirstFollow.follow());
+	}
+
 	@Test
 	public void testCfg1First() {
 		CfgFirstFollow cfgFirstFollow= new CfgFirstFollow("S;Z;I;P;B;J;W#b;f;i;m;n;p;s#S/PZb,S,iBbB;Z/II,If,P;I/B,JZPP,SPnJS,SWsI,bBPb,iB;P/JWWfP,S,Ss,e;B/e,pBPBb,sSP;J/BmPZ,Z,iP;W/bZ,mPnWb,pWBfB");

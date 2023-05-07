@@ -125,7 +125,7 @@ public class CfgFirstFollow {
                     if (!cfg.variables.contains(curVar))
                         continue;
                     ArrayList<String> followOfCur = followList.get(curVar);
-                    ArrayList<String> firstOfNextToCur = firstOf(pattern.substring(j + 1), firstList);
+                    ArrayList<String> firstOfNextToCur = firstOf(pattern.substring(j + 1), firstList); // Check this
                     if (!isSubset(firstOfNextToCur, followOfCur, false)) {
                         for (int k = 0; k < firstOfNextToCur.size(); k++)
                             if (!firstOfNextToCur.get(k).equals("e"))
@@ -133,7 +133,7 @@ public class CfgFirstFollow {
                         change = true;
                     }
 
-                    if (firstOfNextToCur.contains("e") || j + 1 == pattern.length()) {
+                    if (firstOfNextToCur.contains("e") || j + 1 == pattern.length()) { // check this if failed
                         if (!isSubset(followList.get(curRule.ruleName), followList.get(curVar), false)) {
                             followList.get(curVar).addAll(followList.get(curRule.ruleName));
                             change = true;
