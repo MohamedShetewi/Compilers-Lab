@@ -19,10 +19,10 @@ public class Task9Parser extends Parser {
 	public static final int
 		A=1, B=2, C=3;
 	public static final int
-		RULE_start = 0, RULE_s = 1, RULE_a = 2, RULE_b = 3, RULE_c = 4;
+		RULE_s = 0, RULE_a = 1, RULE_b = 2, RULE_c = 3;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"start", "s", "a", "b", "c"
+			"s", "a", "b", "c"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -85,61 +85,20 @@ public class Task9Parser extends Parser {
 	public ATN getATN() { return _ATN; }
 
 
-	    public static int equals(int i, int j) {
-	        return i == j ? 1: 0;
-	    }
+		/**
+		 * Compares two integer numbers
+		 *
+		 * @param x the first number to compare
+		 * @param y the second number to compare
+		 * @return 1 if x is equal to y, and 0 otherwise
+		 */
+		public static int equals(int x, int y) {
+		    return x == y ? 1 : 0;
+		}
 
 	public Task9Parser(TokenStream input) {
 		super(input);
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class StartContext extends ParserRuleContext {
-		public SContext s() {
-			return getRuleContext(SContext.class,0);
-		}
-		public TerminalNode EOF() { return getToken(Task9Parser.EOF, 0); }
-		public StartContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_start; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof Task9Listener ) ((Task9Listener)listener).enterStart(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof Task9Listener ) ((Task9Listener)listener).exitStart(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof Task9Visitor ) return ((Task9Visitor<? extends T>)visitor).visitStart(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final StartContext start() throws RecognitionException {
-		StartContext _localctx = new StartContext(_ctx, getState());
-		enterRule(_localctx, 0, RULE_start);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(10);
-			s();
-			setState(11);
-			match(EOF);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
 	}
 
 	@SuppressWarnings("CheckReturnValue")
@@ -178,15 +137,15 @@ public class Task9Parser extends Parser {
 
 	public final SContext s() throws RecognitionException {
 		SContext _localctx = new SContext(_ctx, getState());
-		enterRule(_localctx, 2, RULE_s);
+		enterRule(_localctx, 0, RULE_s);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(13);
+			setState(8);
 			((SContext)_localctx).a = a();
-			setState(14);
+			setState(9);
 			((SContext)_localctx).c = c(((SContext)_localctx).a.n2, ((SContext)_localctx).a.n3, 0, 1);
-			setState(15);
+			setState(10);
 			((SContext)_localctx).b = b();
 
 			    ((SContext)_localctx).check =  ((SContext)_localctx).c.slf * ((SContext)_localctx).c.suf * equals(((SContext)_localctx).a.n, ((SContext)_localctx).b.n);
@@ -235,17 +194,17 @@ public class Task9Parser extends Parser {
 
 	public final AContext a() throws RecognitionException {
 		AContext _localctx = new AContext(_ctx, getState());
-		enterRule(_localctx, 4, RULE_a);
+		enterRule(_localctx, 2, RULE_a);
 		try {
-			setState(23);
+			setState(18);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case A:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(18);
+				setState(13);
 				match(A);
-				setState(19);
+				setState(14);
 				((AContext)_localctx).a1 = a();
 
 				    ((AContext)_localctx).n =  ((AContext)_localctx).a1.n + 1;
@@ -259,7 +218,7 @@ public class Task9Parser extends Parser {
 			case C:
 				enterOuterAlt(_localctx, 2);
 				{
-				 ((AContext)_localctx).n =  0; ((AContext)_localctx).n2 =  1; ((AContext)_localctx).n3 =  1;
+				((AContext)_localctx).n =  0; ((AContext)_localctx).n2 =  1; ((AContext)_localctx).n3 =  1;
 				}
 				break;
 			default:
@@ -306,17 +265,17 @@ public class Task9Parser extends Parser {
 
 	public final BContext b() throws RecognitionException {
 		BContext _localctx = new BContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_b);
+		enterRule(_localctx, 4, RULE_b);
 		try {
-			setState(30);
+			setState(25);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case B:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(25);
+				setState(20);
 				match(B);
-				setState(26);
+				setState(21);
 				((BContext)_localctx).b1 = b();
 				((BContext)_localctx).n =  ((BContext)_localctx).b1.n + 1;
 				}
@@ -382,17 +341,17 @@ public class Task9Parser extends Parser {
 
 	public final CContext c(int l,int u,int ilf,int iuf) throws RecognitionException {
 		CContext _localctx = new CContext(_ctx, getState(), l, u, ilf, iuf);
-		enterRule(_localctx, 8, RULE_c);
+		enterRule(_localctx, 6, RULE_c);
 		try {
-			setState(37);
+			setState(32);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case C:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(32);
+				setState(27);
 				match(C);
-				setState(33);
+				setState(28);
 				((CContext)_localctx).c1 = c(l, u, ilf, iuf);
 
 				    ((CContext)_localctx).m =  ((CContext)_localctx).c1.m + 1;
@@ -424,32 +383,30 @@ public class Task9Parser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001\u0003(\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
-		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0001"+
+		"\u0004\u0001\u0003#\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0001\u0000\u0001\u0000\u0001"+
 		"\u0000\u0001\u0000\u0001\u0000\u0001\u0001\u0001\u0001\u0001\u0001\u0001"+
-		"\u0001\u0001\u0001\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001"+
-		"\u0002\u0003\u0002\u0018\b\u0002\u0001\u0003\u0001\u0003\u0001\u0003\u0001"+
-		"\u0003\u0001\u0003\u0003\u0003\u001f\b\u0003\u0001\u0004\u0001\u0004\u0001"+
-		"\u0004\u0001\u0004\u0001\u0004\u0003\u0004&\b\u0004\u0001\u0004\u0000"+
-		"\u0000\u0005\u0000\u0002\u0004\u0006\b\u0000\u0000%\u0000\n\u0001\u0000"+
-		"\u0000\u0000\u0002\r\u0001\u0000\u0000\u0000\u0004\u0017\u0001\u0000\u0000"+
-		"\u0000\u0006\u001e\u0001\u0000\u0000\u0000\b%\u0001\u0000\u0000\u0000"+
-		"\n\u000b\u0003\u0002\u0001\u0000\u000b\f\u0005\u0000\u0000\u0001\f\u0001"+
-		"\u0001\u0000\u0000\u0000\r\u000e\u0003\u0004\u0002\u0000\u000e\u000f\u0003"+
-		"\b\u0004\u0000\u000f\u0010\u0003\u0006\u0003\u0000\u0010\u0011\u0006\u0001"+
-		"\uffff\uffff\u0000\u0011\u0003\u0001\u0000\u0000\u0000\u0012\u0013\u0005"+
-		"\u0001\u0000\u0000\u0013\u0014\u0003\u0004\u0002\u0000\u0014\u0015\u0006"+
-		"\u0002\uffff\uffff\u0000\u0015\u0018\u0001\u0000\u0000\u0000\u0016\u0018"+
-		"\u0006\u0002\uffff\uffff\u0000\u0017\u0012\u0001\u0000\u0000\u0000\u0017"+
-		"\u0016\u0001\u0000\u0000\u0000\u0018\u0005\u0001\u0000\u0000\u0000\u0019"+
-		"\u001a\u0005\u0002\u0000\u0000\u001a\u001b\u0003\u0006\u0003\u0000\u001b"+
-		"\u001c\u0006\u0003\uffff\uffff\u0000\u001c\u001f\u0001\u0000\u0000\u0000"+
-		"\u001d\u001f\u0006\u0003\uffff\uffff\u0000\u001e\u0019\u0001\u0000\u0000"+
-		"\u0000\u001e\u001d\u0001\u0000\u0000\u0000\u001f\u0007\u0001\u0000\u0000"+
-		"\u0000 !\u0005\u0003\u0000\u0000!\"\u0003\b\u0004\u0000\"#\u0006\u0004"+
-		"\uffff\uffff\u0000#&\u0001\u0000\u0000\u0000$&\u0006\u0004\uffff\uffff"+
-		"\u0000% \u0001\u0000\u0000\u0000%$\u0001\u0000\u0000\u0000&\t\u0001\u0000"+
-		"\u0000\u0000\u0003\u0017\u001e%";
+		"\u0001\u0001\u0001\u0003\u0001\u0013\b\u0001\u0001\u0002\u0001\u0002\u0001"+
+		"\u0002\u0001\u0002\u0001\u0002\u0003\u0002\u001a\b\u0002\u0001\u0003\u0001"+
+		"\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0003\u0003!\b\u0003\u0001"+
+		"\u0003\u0000\u0000\u0004\u0000\u0002\u0004\u0006\u0000\u0000!\u0000\b"+
+		"\u0001\u0000\u0000\u0000\u0002\u0012\u0001\u0000\u0000\u0000\u0004\u0019"+
+		"\u0001\u0000\u0000\u0000\u0006 \u0001\u0000\u0000\u0000\b\t\u0003\u0002"+
+		"\u0001\u0000\t\n\u0003\u0006\u0003\u0000\n\u000b\u0003\u0004\u0002\u0000"+
+		"\u000b\f\u0006\u0000\uffff\uffff\u0000\f\u0001\u0001\u0000\u0000\u0000"+
+		"\r\u000e\u0005\u0001\u0000\u0000\u000e\u000f\u0003\u0002\u0001\u0000\u000f"+
+		"\u0010\u0006\u0001\uffff\uffff\u0000\u0010\u0013\u0001\u0000\u0000\u0000"+
+		"\u0011\u0013\u0006\u0001\uffff\uffff\u0000\u0012\r\u0001\u0000\u0000\u0000"+
+		"\u0012\u0011\u0001\u0000\u0000\u0000\u0013\u0003\u0001\u0000\u0000\u0000"+
+		"\u0014\u0015\u0005\u0002\u0000\u0000\u0015\u0016\u0003\u0004\u0002\u0000"+
+		"\u0016\u0017\u0006\u0002\uffff\uffff\u0000\u0017\u001a\u0001\u0000\u0000"+
+		"\u0000\u0018\u001a\u0006\u0002\uffff\uffff\u0000\u0019\u0014\u0001\u0000"+
+		"\u0000\u0000\u0019\u0018\u0001\u0000\u0000\u0000\u001a\u0005\u0001\u0000"+
+		"\u0000\u0000\u001b\u001c\u0005\u0003\u0000\u0000\u001c\u001d\u0003\u0006"+
+		"\u0003\u0000\u001d\u001e\u0006\u0003\uffff\uffff\u0000\u001e!\u0001\u0000"+
+		"\u0000\u0000\u001f!\u0006\u0003\uffff\uffff\u0000 \u001b\u0001\u0000\u0000"+
+		"\u0000 \u001f\u0001\u0000\u0000\u0000!\u0007\u0001\u0000\u0000\u0000\u0003"+
+		"\u0012\u0019 ";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

@@ -1,17 +1,25 @@
+/**
+ * Write your info here
+ *
+ * @name Mohamed Shetewi
+ * @id 46-13908
+ * @labNumber 21
+ */
+
 grammar Task9;
 
-@headers {
-    import java.*;
-}
-
-
 @members {
-    public static int equals(int i, int j) {
-        return i == j ? 1: 0;
-    }
+	/**
+	 * Compares two integer numbers
+	 *
+	 * @param x the first number to compare
+	 * @param y the second number to compare
+	 * @return 1 if x is equal to y, and 0 otherwise
+	 */
+	public static int equals(int x, int y) {
+	    return x == y ? 1 : 0;
+	}
 }
-
-start: s EOF;
 
 s returns [int check]: a c[$a.n2, $a.n3, 0, 1] b {
     $check = $c.slf * $c.suf * equals($a.n, $b.n);

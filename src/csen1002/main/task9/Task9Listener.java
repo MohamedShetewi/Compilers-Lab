@@ -8,16 +8,6 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface Task9Listener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link Task9Parser#start}.
-	 * @param ctx the parse tree
-	 */
-	void enterStart(Task9Parser.StartContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link Task9Parser#start}.
-	 * @param ctx the parse tree
-	 */
-	void exitStart(Task9Parser.StartContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link Task9Parser#s}.
 	 * @param ctx the parse tree
 	 */
