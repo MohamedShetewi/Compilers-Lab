@@ -1,0 +1,93 @@
+package csen1002.tests.task8;
+
+import csen1002.main.task8.Task8Lexer;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.Token;
+import org.antlr.v4.runtime.Vocabulary;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
+import org.junit.jupiter.api.Timeout.ThreadMode;
+
+import java.util.List;
+import java.util.StringJoiner;
+import java.util.concurrent.TimeUnit;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@Timeout(value = 5, unit = TimeUnit.SECONDS, threadMode = ThreadMode.SEPARATE_THREAD)
+public class Task8TestsBatch2 {
+	
+	/**
+	 * Returns a string of tokenized lexemes.
+	 *
+	 * @param input is the string to be tokenized.
+	 * @return Returns a formatted string representation of the list of tokens. The
+	 *         string representation follows the one in the task description
+	 */
+	public static String tokenStream(String input) {
+		// In case Task8Lexer is not defined correctly:
+		// 1- If you modified the grammar in the g4 file, regenerate the ANTLR
+		// recognizer to make sure that the latest grammar is generated
+		// 2- Make sure that the location and the package are configured properly
+		Task8Lexer lexer = new Task8Lexer(CharStreams.fromString(input));
+		Vocabulary vocabulary = lexer.getVocabulary();
+		List<? extends Token> tokens = lexer.getAllTokens();
+		StringJoiner stringJoiner = new StringJoiner(";");
+		for (Token token : tokens) {
+			stringJoiner.add(token.getText() + "," + vocabulary.getSymbolicName(token.getType()));
+		}
+		return stringJoiner.toString();
+	}
+
+
+	@Test
+	public void testString1() {
+		assertEquals("\"cj%\",LIT;\"O_(b^kZL\",LIT;),RP;==,COMP;),RP;<,COMP;),RP;(,LP;Else,ELSE;(,LP;),RP;(,LP;if,IF;(,LP;elSe,ELSE;else,ELSE;\"n.M\\\\\",LIT;\"\\\\\",LIT;ELSe,ELSE;>,COMP;700.0,NUM;),RP;==,COMP;jqE0g1yKj,ID;),RP;if,IF;(,LP;!=,COMP;<=,COMP;eLSe,ELSE;elsE,ELSE;\"/XtM}np^\",LIT;>=,COMP;>,COMP;),RP;AYsqGCpHKHOE8,ID;(,LP;(,LP;iF,IF;Else,ELSE;(,LP;(,LP;>,COMP;),RP;elSE,ELSE;),RP;if,IF;eLsE,ELSE;iF,IF;\",H~1xDN\",LIT;ElSe,ELSE;\"ZPFf$U2\",LIT;),RP;\"w|3+I\",LIT;2.4383,NUM;(,LP;yM,ID;\"w\\\"\",LIT;(,LP;_2kiUPIoFx29LO35,ID;nGvSX,ID;>=,COMP;1e-65450,NUM;(,LP;IF,IF;ELsE,ELSE;elSE,ELSE;ELSe,ELSE;!=,COMP;==,COMP;(,LP;Kp3VclbZoh,ID;\"A(\\\\?\",LIT;!=,COMP;==,COMP;(,LP;IF,IF;eiO8wV3,ID;if,IF;ElsE,ELSE;(,LP;\"z@sY\\\"\",LIT;ptXQoJ,ID;IF,IF;!=,COMP;<=,COMP;HNPJZqYCWpj,ID;(,LP;UmH,ID;IF,IF;!=,COMP;8902.01,NUM;(,LP;!=,COMP;IF,IF;JpHuTK77,ID;iF,IF;(,LP", tokenStream("\"cj%\"\"O_(b^kZL\")      ==)<      )(      Else(     )   (    if      (elSe else     \"n.M\\\\\"    \"\\\\\"      ELSe >700.0   )==jqE0g1yKj  )if(  !=    <=eLSe  elsE  \"/XtM}np^\">=>)   AYsqGCpHKHOE8( (iF Else ((>      )      elSE      )   if  eLsE iF\",H~1xDN\"     ElSe    \"ZPFf$U2\")\"w|3+I\"  2.4383(yM      \"w\\\"\"    (_2kiUPIoFx29LO35     nGvSX>=1e-65450(IF ELsE     elSE   ELSe!=      ==   (   Kp3VclbZoh\"A(\\\\?\"!= ==(    IF     eiO8wV3    if    ElsE(\"z@sY\\\"\"     ptXQoJ   IF!=<=HNPJZqYCWpj(  UmH   IF!=    8902.01    (!=  IF   JpHuTK77  iF("));
+	}
+
+	@Test
+	public void testString2() {
+		assertEquals("elSE,ELSE;(,LP;bp9tGkj8UWCsTsu,ID;\"t*B+xt3\",LIT;),RP;NMW7n7,ID;iF,IF;ELse,ELSE;eLSe,ELSE;>=,COMP;iF,IF;),RP;==,COMP;IF,IF;!=,COMP;cVckBk6yRGNRuEjsQ_k,ID;>,COMP;==,COMP;eLSe,ELSE;sz2nso12,ID;ElSE,ELSE;C35sLpiQ,ID;xU,ID;GO,ID;(,LP;AWos8y2,ID;ol,ID;\"\\\\\",LIT;(,LP;(,LP;\"(DP?gF\",LIT;iF,IF;\"\\\"C\\\\\",LIT;4230229e-5966,NUM;),RP;twfwjM8PyorOvG_Ouyd,ID;),RP;57e+7129389,NUM;iF,IF;==,COMP;\"\\\\\",LIT;(,LP;iF,IF;\"dvB;,O0\",LIT;(,LP;cDvPP,ID;\"Lv$.>\",LIT;>=,COMP;ELsE,ELSE;elSE,ELSE;),RP;(,LP;\"bpQ>+_&\",LIT;),RP;),RP;),RP;ElsE,ELSE;407100808675301.42,NUM;db,ID;==,COMP;<,COMP;IF,IF;4707e-1487,NUM;iF,IF;\"v<i7zC\",LIT;(,LP;),RP;aouHwbNx_aq,ID;),RP;(,LP;If,IF;W,ID;3247832876701715e9,NUM;150,NUM;),RP;>=,COMP;\"IvL\",LIT;iF,IF;ELse,ELSE;),RP;ELse,ELSE;(,LP;),RP;Uq3,ID;elSe,ELSE;(,LP;ELSE,ELSE;s7Au,ID;If,IF;\"\\\\\",LIT;\"fdMW0x\",LIT;(,LP;05,NUM;==,COMP;(,LP;!=,COMP;IF,IF;If,IF;(,LP;GEh,ID;If,IF;\"/\\\"\",LIT;\"\",LIT;63E-24641664483,NUM;>=,COMP;xURmGMpd,ID;\"s\\\\W\",LIT;lUUbF6OhN,ID;!=,COMP", tokenStream("elSE   (bp9tGkj8UWCsTsu\"t*B+xt3\"     )NMW7n7      iF    ELse     eLSe>= iF)==     IF      != cVckBk6yRGNRuEjsQ_k> == eLSe sz2nso12     ElSE      C35sLpiQ   xU    GO      (AWos8y2  ol      \"\\\\\"(( \"(DP?gF\"iF   \"\\\"C\\\\\"4230229e-5966)      twfwjM8PyorOvG_Ouyd)   57e+7129389    iF    ==    \"\\\\\"      (iF\"dvB;,O0\"   (cDvPP \"Lv$.>\">=  ELsE    elSE)(\"bpQ>+_&\") )   )ElsE    407100808675301.42db ==  <IF      4707e-1487   iF \"v<i7zC\"   ()aouHwbNx_aq     )(If   W      3247832876701715e9      150)  >=\"IvL\"iF      ELse)ELse      (   )Uq3     elSe(      ELSE  s7Au      If    \"\\\\\"\"fdMW0x\"  (      05==(!=   IF  If  ( GEh If\"/\\\"\"\"\"63E-24641664483>=    xURmGMpd    \"s\\\\W\"lUUbF6OhN!="));
+	}
+
+	@Test
+	public void testString3() {
+		assertEquals("(,LP;If,IF;3613462.017,NUM;),RP;009.032E3,NUM;),RP;),RP;==,COMP;(,LP;\"z\\\"\\\"\",LIT;Else,ELSE;),RP;(,LP;ELsE,ELSE;>=,COMP;\"\\\"\",LIT;),RP;04618430275634851664,NUM;),RP;ElSE,ELSE;),RP;\"\\\"`\\\\&\",LIT;IF,IF;<=,COMP;If,IF;2,NUM;\")\\\\\",LIT;!=,COMP;iF,IF;!=,COMP;\"8Px\",LIT;!=,COMP;beX,ID;if,IF;eLsE,ELSE;HOWqsrmFgkd0n,ID;\"|7;[U\",LIT;IF,IF;==,COMP;IF,IF;71760411957,NUM;53995004,NUM;04234687166.97,NUM;iF,IF;),RP;<=,COMP;\"\",LIT;>,COMP;),RP;if,IF;elSe,ELSE;UnotZXh,ID;I6l,ID;iF,IF;\"yo\\\\Y\",LIT;McL3_PbH375iBMj,ID;),RP;elSE,ELSE;if,IF;(,LP;H,ID;If,IF;if,IF;iF,IF;>=,COMP;(,LP;334949e-32,NUM;yy,ID;583e009,NUM;<=,COMP;),RP;if,IF;ELSE,ELSE;332368759,NUM;\")\\\"\",LIT;ELse,ELSE;>,COMP;ELsE,ELSE;<,COMP;LyVGXqFVxA0h5SJlqeG9gM0,ID;),RP;\"\\\\`\",LIT;YQyJkijR,ID", tokenStream("(   If     3613462.017)   009.032E3 )     )==(     \"z\\\"\\\"\"  Else )(ELsE>=\"\\\"\")04618430275634851664)ElSE)\"\\\"`\\\\&\" IF<=If   2 \")\\\\\"!=iF!=\"8Px\"    != beX    if   eLsE    HOWqsrmFgkd0n\"|7;[U\"    IF== IF    71760411957    53995004   04234687166.97iF)     <= \"\"   >   )if elSe  UnotZXh      I6l      iF  \"yo\\\\Y\"McL3_PbH375iBMj  )elSE  if     (     H      If    if   iF>=(   334949e-32yy    583e009<=    ) if     ELSE   332368759 \")\\\"\"  ELse     >ELsE    <     LyVGXqFVxA0h5SJlqeG9gM0   )    \"\\\\`\"    YQyJkijR"));
+	}
+
+	@Test
+	public void testString4() {
+		assertEquals("\"+U-K\",LIT;),RP;(,LP;Else,ELSE;22915291597.4,NUM;iF,IF;),RP;>=,COMP;7928.085149227e+02395,NUM;if,IF;(,LP;80201255996198304,NUM;==,COMP;),RP;(,LP;(,LP;ELse,ELSE;eLse,ELSE;eLSe,ELSE;),RP;>=,COMP;453939471740061,NUM;a3IzshtDhxOlff,ID;),RP;),RP;(,LP;r4GqqzRujJoqLw,ID;>=,COMP;),RP;ELsE,ELSE;<,COMP;IF,IF;\"\",LIT;(,LP;elSe,ELSE;dwP8hXn4RdyjBxZ,ID;HwaK3TToMJJeX6E,ID;),RP;If,IF;),RP;(,LP;6179500934.617593,NUM;4625347434756,NUM;\"[BkR9g\",LIT;>,COMP;L0GSvou,ID;\".\\\"\",LIT;elSe,ELSE;z97mxk6Z,ID;eLsE,ELSE;IF,IF;S6,ID;Gs,ID;\"\\\\j\",LIT;),RP;IF,IF;),RP;),RP;),RP;),RP;02961903695938E81523,NUM;02090391727,NUM;==,COMP;IF,IF;(,LP;<=,COMP;42631928544790E4,NUM;oatKPTms,ID;else,ELSE;\"+`\\\"\",LIT;<,COMP;==,COMP;573743.4e90,NUM;ELsE,ELSE;ElSe,ELSE;==,COMP;e,ID;(,LP;j1wgPgV,ID;eLsE,ELSE;\"\\\\\",LIT;27786378654511096,NUM;ElsE,ELSE;If,IF;14825455136.884e77,NUM;),RP;<,COMP;),RP;<,COMP;),RP;),RP;(,LP;(,LP;\"75vg_G`5r=NT<\",LIT;<=,COMP;),RP;ELSe,ELSE;731777783.0,NUM;270185118183281,NUM", tokenStream("\"+U-K\"   )(Else 22915291597.4 iF)>=7928.085149227e+02395if(      80201255996198304     ==      )   ((  ELse   eLse eLSe)>=      453939471740061  a3IzshtDhxOlff)     )(r4GqqzRujJoqLw>=   )    ELsE<  IF     \"\"   (elSe     dwP8hXn4RdyjBxZ      HwaK3TToMJJeX6E    ) If )  (6179500934.617593      4625347434756   \"[BkR9g\"  >L0GSvou   \".\\\"\"elSe  z97mxk6Z     eLsE      IF    S6 Gs \"\\\\j\"    )IF ) ))  )02961903695938E81523 02090391727==IF(<=     42631928544790E4     oatKPTms   else\"+`\\\"\" < ==      573743.4e90ELsE  ElSe     ==      e   (j1wgPgV    eLsE\"\\\\\"27786378654511096   ElsE  If  14825455136.884e77  )      <)    <      )      )( (  \"75vg_G`5r=NT<\"<=)ELSe 731777783.0      270185118183281"));
+	}
+
+	@Test
+	public void testString5() {
+		assertEquals("L9jBS51jYf4iv2PAkeDkRPK,ID;WpZ4lMQhzb_PUCu,ID;ELsE,ELSE;(,LP;elsE,ELSE;a5LD1tNRpIehH,ID;<=,COMP;If,IF;9355072098933.70E63,NUM;),RP;>,COMP;elsE,ELSE;hVr5MhmAMZxqXDiWIZazlbHM,ID;(,LP;==,COMP;\"hC:uzk\",LIT;If,IF;\"{GkD\",LIT;\"'YhF\\\\\",LIT;(,LP;ELsE,ELSE;(,LP;ElSe,ELSE;20649697269354128796,NUM;),RP;),RP;IF,IF;\"m_v3tL0{[\",LIT;ELSe,ELSE;\"y\\\"#\",LIT;\"(h\\\"\\\\\",LIT;\"XmWm2lI\",LIT;\"k8R|mi\",LIT;5048013202692768.2,NUM;4896,NUM;!=,COMP;eLse,ELSE;!=,COMP;802541.7877141E0902,NUM;(,LP;eLSE,ELSE;99.0728134547,NUM;364.7784E8,NUM;<=,COMP;),RP;tW,ID;\"P\\\\\",LIT;),RP;IF,IF;iF,IF;else,ELSE;<=,COMP;(,LP;else,ELSE;),RP;iF,IF;334822881.392,NUM;<=,COMP;471734842742161E-4368,NUM;v,ID;\"\\\\S\",LIT;<=,COMP;iF,IF;IF,IF;(,LP;IF,IF;8949673581e+820,NUM;029299549.621957e+4,NUM;(,LP;),RP;oDHSiinLcut0,ID;),RP;8260715e70568,NUM;72E466830,NUM;LDPx,ID;stUIO,ID;(,LP;ELSE,ELSE;(,LP;NCRTs1Y,ID;),RP;IF,IF;!=,COMP;eLse,ELSE;9.84830676781e4,NUM;7563402582146526.9,NUM;j0APylPT,ID;ELSe,ELSE;(,LP;\"\\\"\",LIT;\"im8H~\",LIT;If,IF;K1lYbCHVd3t6b5oBQTpC,ID;gVFnhRLtTm7T_,ID;00805996060099338.4,NUM;(,LP;),RP;198849803249565.01,NUM;),RP;if,IF;\"\\\"\",LIT;<=,COMP;ELsE,ELSE;h_uSJFuoa,ID;ELse,ELSE;Else,ELSE;elsE,ELSE;ElSe,ELSE;\")Rc\\\\\",LIT;ElsE,ELSE;a9od3e1It,ID;\"9;&kUa-_G&\",LIT;iF,IF;if,IF;ElSE,ELSE;),RP;<,COMP", tokenStream("L9jBS51jYf4iv2PAkeDkRPK WpZ4lMQhzb_PUCu    ELsE (elsE     a5LD1tNRpIehH<=If   9355072098933.70E63)>elsE   hVr5MhmAMZxqXDiWIZazlbHM(==      \"hC:uzk\"If\"{GkD\"    \"'YhF\\\\\"     (   ELsE (ElSe  20649697269354128796))      IF\"m_v3tL0{[\"ELSe \"y\\\"#\"     \"(h\\\"\\\\\"    \"XmWm2lI\"    \"k8R|mi\"5048013202692768.2      4896!=   eLse!=802541.7877141E0902 (     eLSE     99.0728134547   364.7784E8    <=)tW   \"P\\\\\")IF   iF     else<= (   else)      iF 334822881.392    <=  471734842742161E-4368v  \"\\\\S\"  <=  iF     IF      (IF      8949673581e+820      029299549.621957e+4()oDHSiinLcut0  )8260715e70568 72E466830 LDPx stUIO(ELSE( NCRTs1Y      )      IF   !=eLse  9.84830676781e4   7563402582146526.9     j0APylPT      ELSe(\"\\\"\" \"im8H~\"If     K1lYbCHVd3t6b5oBQTpC    gVFnhRLtTm7T_   00805996060099338.4    ()      198849803249565.01)if      \"\\\"\"      <=ELsE   h_uSJFuoa     ELse   Else     elsE      ElSe    \")Rc\\\\\"  ElsE   a9od3e1It\"9;&kUa-_G&\"iF   if     ElSE)<"));
+	}
+
+	@Test
+	public void testString6() {
+		assertEquals("ieSf9,ID;Else,ELSE;),RP;\"2/K4~\",LIT;\"o\\\\\",LIT;(,LP;<,COMP;38637072447412.7,NUM;>=,COMP;!=,COMP;if,IF;xFhYYQl1z4fmRx,ID;iF,IF;981461556950.8,NUM;),RP;KWfzkXJJ6,ID;Else,ELSE;If,IF;),RP;>=,COMP;5222e4,NUM;IF,IF;),RP;ElSe,ELSE;(,LP;\"|)zTT/\",LIT;ELsE,ELSE;),RP;416.507436974109269,NUM;\"dSh\",LIT;\"\",LIT;SmVcq,ID;\"D\\\\\",LIT;(,LP;eKI,ID;\"<T\",LIT;bVIZtlZXZopEu6w8XBE71,ID;30063050257E+43263738,NUM;If,IF;33654800174.39,NUM;<,COMP;),RP;I,ID;(,LP;>,COMP;),RP;\"\\\"\",LIT;308612208646477954,NUM;(,LP;If,IF;IF,IF;541340541767064833e5,NUM;!=,COMP;ELSe,ELSE;(,LP;08760e+327496873,NUM;n3,ID;702775.73e+9,NUM;>=,COMP;if,IF;s_sr,ID;WKLp,ID;IF,IF;dgyDOa,ID;IF,IF;ElsE,ELSE;==,COMP;898983.15,NUM;eLSe,ELSE;),RP;==,COMP;(,LP;If,IF;gWfYplu,ID;YuiuCM,ID;!=,COMP;9670002e5527066,NUM;),RP;F9VYd,ID;),RP;<,COMP;eLsE,ELSE;082918E1,NUM;Else,ELSE;(,LP;),RP;==,COMP", tokenStream("ieSf9 Else      )     \"2/K4~\"\"o\\\\\"(     < 38637072447412.7   >=   !=if     xFhYYQl1z4fmRx iF   981461556950.8)  KWfzkXJJ6      Else If )    >=5222e4     IF)   ElSe(   \"|)zTT/\"ELsE)416.507436974109269    \"dSh\"   \"\"SmVcq\"D\\\\\"     (      eKI   \"<T\"bVIZtlZXZopEu6w8XBE71 30063050257E+43263738If 33654800174.39<   )I (   >)\"\\\"\"   308612208646477954(   If     IF   541340541767064833e5!=     ELSe (   08760e+327496873      n3  702775.73e+9>=if      s_sr   WKLp IF    dgyDOa  IF      ElsE ==898983.15 eLSe)    ==(      If    gWfYplu YuiuCM!=9670002e5527066)F9VYd)      <  eLsE  082918E1Else   ()=="));
+	}
+
+	@Test
+	public void testString7() {
+		assertEquals("else,ELSE;(,LP;),RP;AXANz_idymIp,ID;(,LP;\"A75a\\\"\",LIT;ELse,ELSE;iF,IF;51.639,NUM;),RP;98428.1011476372,NUM;iF,IF;2169537661087,NUM;(,LP;ElSE,ELSE;else,ELSE;(,LP;>=,COMP;),RP;iF,IF;\"c[%[%4-o\",LIT;(,LP;vF55xL,ID;00636e+93,NUM;(,LP;Ztukt,ID;nQIt4,ID;if,IF;6714E136623,NUM;\"J\\\"\",LIT;22.5,NUM;6e6,NUM;iF,IF;(,LP;\"|\",LIT;927067168716996581826.14,NUM;96400071439208,NUM;),RP;IF,IF;If,IF;(,LP;Yqtb,ID;tljr,ID;\"\\\\\",LIT;<=,COMP;IF,IF;),RP;eLse,ELSE;IF,IF;ApB801XJHO,ID;\"\\\\\",LIT;iF,IF;If,IF;if,IF;Else,ELSE;If,IF;>,COMP;\" y^d6?\",LIT;(,LP;ELse,ELSE;),RP;ELse,ELSE;!=,COMP;\"}3A+dpx_s\",LIT;vVS6,ID;elsE,ELSE;<,COMP;kjn,ID;ELse,ELSE;<=,COMP;617408.4543,NUM;\"A&K\\\\\",LIT;<,COMP;42669419018907,NUM;==,COMP;<=,COMP;ysTGC5fS,ID;eLSe,ELSE;<,COMP;),RP;ELsE,ELSE;==,COMP;CrH8fzq,ID;03259895586e-8,NUM;22504.5684,NUM;If,IF;),RP;eLse,ELSE;(,LP;akqquwqK_xA2fUKkJrf,ID;!=,COMP;\"4sNydv?\",LIT", tokenStream("else     (   ) AXANz_idymIp(\"A75a\\\"\"  ELse  iF  51.639) 98428.1011476372iF    2169537661087     (  ElSE     else(>=)iF  \"c[%[%4-o\"(vF55xL      00636e+93      (Ztukt      nQIt4 if   6714E136623\"J\\\"\"22.5   6e6iF      (      \"|\"  927067168716996581826.14      96400071439208)   IF   If(  Yqtb     tljr\"\\\\\"<=  IF)      eLse    IF    ApB801XJHO\"\\\\\"    iF    If   if  Else  If>      \" y^d6?\"(     ELse )    ELse!=     \"}3A+dpx_s\"vVS6      elsE     <kjn  ELse     <= 617408.4543      \"A&K\\\\\"  <42669419018907== <=     ysTGC5fS   eLSe<   )ELsE  ==CrH8fzq    03259895586e-8  22504.5684  If)    eLse     (     akqquwqK_xA2fUKkJrf!=\"4sNydv?\""));
+	}
+
+	@Test
+	public void testString8() {
+		assertEquals("if,IF;(,LP;(,LP;elsE,ELSE;<,COMP;),RP;\"(wtJ4\",LIT;eLse,ELSE;(,LP;!=,COMP;4604.618e5,NUM;\"&q\\\"<\",LIT;(,LP;AVHVWBNUFVwc,ID;\"zNYm\\\"\",LIT;(,LP;\"Mqq@\",LIT;If,IF;OOii6Z6zF19VYbZJU,ID;\"r@.p 0\",LIT;6e55316401,NUM;eLse,ELSE;Td6Cuuyi_a7chJNAw,ID;If,IF;(,LP;ElSE,ELSE;(,LP;!=,COMP;md,ID;if,IF;),RP;(,LP;),RP;If,IF;),RP;!=,COMP;if,IF;(,LP;\"\\\\\",LIT;==,COMP;),RP;>=,COMP;(,LP;elSe,ELSE;),RP;(,LP;),RP;If,IF;<,COMP;\"=Ph N\",LIT;3.2963,NUM;h7IoUlXDq,ID;ELsE,ELSE;ELsE,ELSE;\"[\\\"\",LIT;ElsE,ELSE;\"Vkj\\\\\",LIT;\"F5966R\",LIT;\"<;ad7` \",LIT;IF,IF;68883828086,NUM;!=,COMP;),RP;tRas,ID;ElSE,ELSE;(,LP;\"Du,<p$\",LIT;Else,ELSE;==,COMP;h50QX,ID;sjYfjl4,ID;(,LP;SdI,ID;\"\\\\@f\",LIT;If,IF;DHY8BXm_9J,ID;else,ELSE;\"Lx.nI(P:S''J:\",LIT;0E4143636126,NUM;==,COMP;\"-\\\"\",LIT;xEIX,ID;(,LP;),RP;),RP;(,LP;\"EB&f>\",LIT;<=,COMP;\"\\\"?\",LIT;Cii8Ygssmwk,ID;),RP;\"-\",LIT;(,LP;\"BUk)|\\\"\",LIT;IF,IF;if,IF;01E4,NUM;eLSe,ELSE;eLsE,ELSE;obkoT1d2a,ID", tokenStream("if(  ( elsE  <)\"(wtJ4\"eLse( !=4604.618e5\"&q\\\"<\"   (   AVHVWBNUFVwc\"zNYm\\\"\"(\"Mqq@\"If      OOii6Z6zF19VYbZJU\"r@.p 0\"6e55316401   eLse     Td6Cuuyi_a7chJNAw   If(    ElSE(!=md if )()  If  )!= if     (\"\\\\\"==   )  >=      (  elSe      )      ()If    < \"=Ph N\"    3.2963     h7IoUlXDq      ELsE ELsE      \"[\\\"\"   ElsE  \"Vkj\\\\\"   \"F5966R\"    \"<;ad7` \"      IF      68883828086 !=)      tRas  ElSE  (\"Du,<p$\"Else==h50QX  sjYfjl4(  SdI    \"\\\\@f\"If    DHY8BXm_9J     else\"Lx.nI(P:S''J:\"     0E4143636126==  \"-\\\"\"xEIX     ()) (  \"EB&f>\"<=     \"\\\"?\"Cii8Ygssmwk)     \"-\"(\"BUk)|\\\"\"     IF      if    01E4     eLSe eLsE  obkoT1d2a"));
+	}
+
+	@Test
+	public void testString9() {
+		assertEquals("),RP;(,LP;if,IF;\"\\\\H\\\\\",LIT;>,COMP;q,ID;(,LP;dGwz7H9RI4,ID;iF,IF;(,LP;),RP;if,IF;!=,COMP;IF,IF;),RP;),RP;),RP;(,LP;\"\",LIT;BXHrTn9iMrSZ3qZHq,ID;eLsE,ELSE;==,COMP;<,COMP;(,LP;(,LP;(,LP;097021779442338229,NUM;65911537273E+21,NUM;<=,COMP;if,IF;If,IF;Aovf0kw,ID;),RP;eLSe,ELSE;\"P(YGo\",LIT;IF,IF;\"o\",LIT;>,COMP;(,LP;\"\\\\\\\\/\",LIT;),RP;IF,IF;47603360e5,NUM;ELSe,ELSE;\"\",LIT;If,IF;(,LP;),RP;),RP;65346601256.893818,NUM;(,LP;\"XjUgN6NOb\",LIT;ELse,ELSE;),RP;IF,IF;1761712,NUM;\"{6Wn0\",LIT;IF,IF;),RP;>=,COMP;\"\\\"\\\\\",LIT;TNbPka5vrlz,ID;elsE,ELSE;(,LP;\"L\",LIT;84460257462.511e860602,NUM;),RP;ELse,ELSE;(,LP;ELse,ELSE;O06tamk2iFHZ1vjeE,ID;iF,IF;>,COMP;==,COMP;ElsE,ELSE;),RP;136088957837891,NUM;>,COMP;IF,IF;\"?0*{\",LIT;(,LP;fnU5UVPk_,ID;\"W\\\"\",LIT;elSE,ELSE;),RP;),RP;157776E2401391,NUM;374907421988E302,NUM;p7o,ID;ELsE,ELSE;ELsE,ELSE;ELse,ELSE;),RP;(,LP;==,COMP;xOZHgLSt,ID;iF,IF;>=,COMP;!=,COMP;RqJ3tvOBOxLOexGaa7,ID;(,LP;23.20692423,NUM;ELSE,ELSE;),RP;ELSE,ELSE;6963198338330723.94,NUM;<=,COMP", tokenStream(") (if\"\\\\H\\\\\">     q (    dGwz7H9RI4     iF   (   )if    !=IF)     ))  ( \"\"   BXHrTn9iMrSZ3qZHq      eLsE==  <    (     ((097021779442338229     65911537273E+21     <=if     If     Aovf0kw )    eLSe\"P(YGo\"  IF     \"o\">(\"\\\\\\\\/\")      IF      47603360e5     ELSe\"\"If(    ))    65346601256.893818  (\"XjUgN6NOb\"ELse  )   IF      1761712    \"{6Wn0\"   IF  )>=\"\\\"\\\\\"TNbPka5vrlz   elsE      (  \"L\"84460257462.511e860602   )     ELse   (ELse    O06tamk2iFHZ1vjeE    iF>    == ElsE  )136088957837891>IF\"?0*{\"(fnU5UVPk_\"W\\\"\"elSE))157776E2401391      374907421988E302      p7o ELsE   ELsE  ELse     ) (      ==xOZHgLSt      iF   >=!=RqJ3tvOBOxLOexGaa7 (23.20692423ELSE)ELSE 6963198338330723.94<="));
+	}
+
+	@Test
+	public void testString10() {
+		assertEquals("(,LP;iF,IF;),RP;\"g\\\"\",LIT;==,COMP;>=,COMP;4263782044.08983,NUM;13318644741.8,NUM;4144226013349,NUM;==,COMP;(,LP;ELsE,ELSE;<=,COMP;\"Mr~n\",LIT;ELSe,ELSE;),RP;),RP;ELSe,ELSE;\"LwE.p\",LIT;VWlO,ID;>,COMP;iF,IF;If,IF;Else,ELSE;==,COMP;eLsE,ELSE;),RP;OskjmKSDV9Bjh,ID;),RP;>,COMP;(,LP;(,LP;_ciw_g2yaBJ,ID;JoanQ,ID;2,NUM;(,LP;ElSE,ELSE;ELSe,ELSE;IF,IF;\"!\",LIT;(,LP;),RP;elSE,ELSE;),RP;>=,COMP;z1JEVpEM4p,ID;>=,COMP;ELSe,ELSE;==,COMP;<=,COMP;!=,COMP;(,LP;>,COMP;8539560892972264609,NUM;==,COMP;if,IF;eLSE,ELSE;_VTm11CE,ID;fWrknsgAw,ID;<=,COMP;\"m\",LIT;(,LP;),RP;eLSe,ELSE;),RP;qS,ID;(,LP;iF,IF;!=,COMP;),RP;<=,COMP;019426.72832497978,NUM;IF,IF;07829973895.8211,NUM;ElSe,ELSE;!=,COMP;fyp7sFEY1ha,ID;LvnFHplGEs,ID;elSE,ELSE;25190898314,NUM;37163932623652980620189.3,NUM;eLSE,ELSE;(,LP;<=,COMP;QM7spzpzSZYAj,ID;),RP;<,COMP;\"c|d[mkq}Uur3:h\",LIT;ElSe,ELSE;42470.48044,NUM;FxnAz8F5j9_T,ID;!=,COMP;),RP;786758.85515247516,NUM;),RP;IF,IF;815e+9,NUM;==,COMP", tokenStream("(iF)\"g\\\"\"==>=4263782044.08983      13318644741.8 4144226013349     ==(    ELsE<=\"Mr~n\"  ELSe  )  )  ELSe\"LwE.p\"VWlO    >    iF If    Else==eLsE    )    OskjmKSDV9Bjh)>(( _ciw_g2yaBJ  JoanQ     2(      ElSE   ELSe  IF\"!\"(    )    elSE)    >=z1JEVpEM4p    >=ELSe ==<=!=(  >8539560892972264609      ==  if eLSE     _VTm11CE  fWrknsgAw    <=\"m\"      ()eLSe)  qS     (  iF!=)<=      019426.72832497978IF 07829973895.8211ElSe!=fyp7sFEY1ha LvnFHplGEs  elSE    25190898314     37163932623652980620189.3eLSE (<=QM7spzpzSZYAj )  <\"c|d[mkq}Uur3:h\"  ElSe   42470.48044 FxnAz8F5j9_T  !=)786758.85515247516 )IF  815e+9=="));
+	}
+
+}
